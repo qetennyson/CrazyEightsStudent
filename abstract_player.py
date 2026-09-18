@@ -1,6 +1,6 @@
 class Player:
     """
-    Parent class for all players in Crazy Eights
+    Superclass for all players in Crazy Eights
     """
     def __init__(self, name, hand=None):
         """
@@ -33,7 +33,7 @@ class Player:
     def accept_card(self, card):
         """
         Accept a single card and add it to the player's hand.
-        Additionally, print the card which was accepted.
+        Do NOT print anything here - the doctests below expect silence.
 
         >>> from card import Card
         >>> p = Player("Alice")
@@ -48,11 +48,10 @@ class Player:
 
     def play(self):
         """
-        Make a decision about how to play (hit or stay).
+        Make a decision about how to play.
         
-        This method will be OVERRIDEN by subclasses.  For example, UserPlayer
-        will get the input from the user on what they want to do.  On the other
-        hand the Dealer must be play based on house rules.
+        This method will be OVERRIDDEN by subclasses.  For example, UserPlayer
+        asks the user which card they want to play.
 
         This abstract method should simply return True.
 

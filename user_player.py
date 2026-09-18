@@ -19,7 +19,6 @@ class UserPlayer(Player):
         >>> isinstance(up, UserPlayer)
         True
         """
-        super().__init__(name, hand)
 
     def get_user_play_input(self) -> int:
         """
@@ -39,27 +38,14 @@ class UserPlayer(Player):
             4. Use the convert_numerical_choice_to_card(user_input_as_int) helper function
             to verify they have chosen a card that exists in their hand.
 
-            5. If their valid card choice is a number that is between 0 and the length of the
-            player's hand, return the card choice.
+            5. convert_numerical_choice_to_card() returns False when that slot does
+            not exist.  Check for that FIRST with `is False`, because False == 0 and
+            a plain `in range(...)` test would quietly accept it as the first card.
+            Then, if the choice is between 0 and the length of the player's hand,
+            return the card choice.
    
         Otherwise, continue the while loop so they have to choose another card.
         """
-        self.display_hand()
-        while True:
-            print("Choose a valid card to play or [d]raw: ")
-            user_input = input("> ").strip().lower()
-            if user_input == 'd':
-                return user_input
-            
-            # check valid card.
-            user_input_as_int = int(user_input)
-            
-            # convert to a valid numerical choice.
-            valid_numerical_card_choice = self.convert_numerical_choice_to_card(user_input_as_int)
-            if valid_numerical_card_choice in range(0, len(self.hand)):
-                return valid_numerical_card_choice
-            else:
-                continue    
 
     def convert_numerical_choice_to_card(self, players_numerical_card_choice):
         """
@@ -104,18 +90,7 @@ class UserPlayer(Player):
             5. OTHERWISE, inform the user they tried to play a non-matching card 
             and let the loop run again.
         """
-        while True:
-            users_card_input = self.get_user_play_input()
-            if users_card_input == 'd':
-                return False
-            
-            potential_card = self.hand[users_card_input]
-
-            if (potential_card == current_card_to_match) or potential_card.get_rank() == 8:
-                # make sure you pop the potential card, based on index, if you've confirmed it.
-                return self.hand.pop(users_card_input)
-            else:
-                print(f"You cannot play {potential_card}, try again!")
+        # make sure you pop the potential card, based on index, if you've confirmed it.
     
     def get_user_suit_choice(self):
         """

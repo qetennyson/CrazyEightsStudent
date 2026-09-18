@@ -89,6 +89,9 @@ class Deck:
 
         There is one ideal way to do this with Python!
 
+        NOTE: drawing from an empty deck raises an IndexError.
+        Check that cards remain in the deck before you draw.
+
         >>> a_deck = Deck()
         >>> a_deck.draw()
         A ♦

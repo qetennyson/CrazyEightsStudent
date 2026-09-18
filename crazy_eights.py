@@ -7,11 +7,9 @@ class CrazyEights:
     A class representing a game of CrazyEights with a Deck of Cards
     and UserPlayers.
     """
-    def __init__(self, players: List[UserPlayer], current_suit='Spades', crazy_deck=None):
+    def __init__(self, players: List[UserPlayer], crazy_deck=None):
         """
         - Initialize self.players to the players parameter.
-        - Initialize current_suit to current_suit, ensure the default argument of 
-        current_suit is 'Spades'.
         - Initialize crazy_deck to the crazy_deck argument if given, or Deck() + Deck() otherwise.
 
         Use this exact expression for the deck:
@@ -73,7 +71,14 @@ class CrazyEights:
     def check_for_empty_player_hand(self, current_player):
         return current_player.hand_is_empty()   
     
-    def temporarily_change_eight_suit(self, card, user_suit_choice):
+    def change_eight_suit(self, card, user_suit_choice):
+        """
+        EXTENSION ONLY - implementing this behaviour is optional, not required.
+
+        Permanently changes the suit of the played 8 to the suit the player chose.
+        The change is never undone: the card has already been popped from the
+        player's hand and stays in the discard pile as the card to match.
+        """
         card.set_suit(user_suit_choice)
 
     # Primary Game Loop
@@ -155,7 +160,7 @@ class CrazyEights:
                         # original Crazy Eight Rules.  DO NOT UNCOMMENT UNTIL ALL OTHER FEATURES ARE FINISHED!
 
                         # suit_choice = player.get_user_suit_choice()
-                        # self.temporarily_change_eight_suit(player_card, suit_choice)
+                        # self.change_eight_suit(player_card, suit_choice)
 
                         
                     # otherwise if the player successfully plays a non-8
@@ -174,8 +179,9 @@ class CrazyEights:
                 # use the correct method to check for an empty player hand
                 # they win immediately if that method returns True
                 
-                    # Print a victory message with the player's name
-                    # and break the while loop.
+                    # Print a victory message with the player's name, then break
+                    # out of the FOR loop.  The while loop's condition ends the game
+                    # on its next check, because the winner's hand is now empty.
                     
             
                     
